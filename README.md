@@ -34,7 +34,7 @@
 ## 🚀 Live Demo
 
 Check it out live:  
-👉 [https://rgerjeki.github.io/querylab](https://rgerjeki.github.io/querylab)
+👉 [https://querylab-reg.github.io](https://querylab-reg.github.io)
 
 ---
 
