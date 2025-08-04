@@ -1,0 +1,1561 @@
+[
+  {
+    "id": 14,
+    "level": "Beginner",
+    "title": "Books Published After 2000",
+    "description": "List titles of books published after the year 2000.",
+    "schema": "CREATE TABLE books (id INTEGER, title TEXT, year_published INTEGER);\nINSERT INTO books VALUES (1, 'Old Book', 1995), (2, 'Modern Book', 2005), (3, 'Another New', 2015);",
+    "expectedResult": [
+      {
+        "title": "Modern Book",
+        "year_published": 2005
+      },
+      {
+        "title": "Another New",
+        "year_published": 2015
+      }
+    ],
+    "answer": {
+      "explanation": "<strong>Goal:</strong> Filter books to those published after 2000 and present them in chronological order. <strong>Mechanics:</strong> We start from the books table, apply a WHERE clause to keep only rows where year_published > 2000, then use ORDER BY to sort by year. Logic: This is a simple comparison filter (year > 2000) and ordering ensures the output flows from earlier to later.",
+      "steps": [
+        {
+          "sql": "FROM\n  books",
+          "description": "Start from the books table."
+        },
+        {
+          "sql": "SELECT\n  title,\n  year_published",
+          "description": "Choose the title and publication year to display."
+        },
+        {
+          "sql": "WHERE\n  year_published > 2000",
+          "description": "Filter to books published after 2000."
+        },
+        {
+          "sql": "ORDER BY\n  year_published",
+          "description": "Sort results by year so newer books appear later."
+        },
+        {
+          "sql": "SELECT\n  title,\n  year_published\nFROM\n  books\nWHERE\n  year_published > 2000\nORDER BY\n  year_published;",
+          "description": "",
+          "final": true
+        }
+      ],
+      "exampleTable": {
+        "before": [
+          {
+            "title": "Old Book",
+            "year_published": 1995
+          },
+          {
+            "title": "Modern Book",
+            "year_published": 2005
+          },
+          {
+            "title": "Another New",
+            "year_published": 2015
+          }
+        ],
+        "after": [
+          {
+            "title": "Modern Book",
+            "year_published": 2005
+          },
+          {
+            "title": "Another New",
+            "year_published": 2015
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 16,
+    "level": "Beginner",
+    "title": "Affordable Products",
+    "description": "List product names and prices for items priced between $1 and $10.",
+    "schema": "CREATE TABLE products (id INTEGER, name TEXT, price REAL);\nINSERT INTO products VALUES (1, 'Pen', 1.5), (2, 'Notebook', 5), (3, 'Laptop', 1200);",
+    "expectedResult": [
+      {
+        "name": "Pen",
+        "price": 1.5
+      },
+      {
+        "name": "Notebook",
+        "price": 5.0
+      }
+    ],
+    "answer": {
+      "explanation": "<strong>Goal:</strong> Show products that are affordable, defined as having price between $1 and $10. <strong>Mechanics:</strong> We use a WHERE clause with BETWEEN to include values in the inclusive range [1,10], then select name and price. Ordering by price makes cheaper items appear first. <strong>Math:</strong> BETWEEN is equivalent to price >=1 AND price <=10, so only products inside that window remain.",
+      "steps": [
+        {
+          "sql": "FROM\n  products",
+          "description": "Start with the list of products."
+        },
+        {
+          "sql": "SELECT\n  name,\n  price",
+          "description": "Choose the fields we care about."
+        },
+        {
+          "sql": "WHERE\n  price BETWEEN 1 AND 10",
+          "description": "Keep only products whose price is in the desired range."
+        },
+        {
+          "sql": "SELECT\n  name,\n  price\nFROM\n  products\nWHERE\n  price BETWEEN 1 AND 10\nORDER BY\n  price;",
+          "description": "Optionally order by price for readability.",
+          "final": true
+        }
+      ],
+      "exampleTable": {
+        "before": [
+          {
+            "name": "Pen",
+            "price": 1.5
+          },
+          {
+            "name": "Notebook",
+            "price": 5
+          },
+          {
+            "name": "Laptop",
+            "price": 1200
+          }
+        ],
+        "after": [
+          {
+            "name": "Pen",
+            "price": 1.5
+          },
+          {
+            "name": "Notebook",
+            "price": 5.0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 19,
+    "level": "Beginner",
+    "title": "Distinct User Countries",
+    "description": "List all unique countries that users are from.",
+    "schema": "CREATE TABLE users (id INTEGER, name TEXT, country TEXT);\nINSERT INTO users VALUES (1, 'Alice', 'USA'), (2, 'Bob', 'Canada'), (3, 'Carol', 'USA'), (4, 'Dave', 'Mexico');",
+    "expectedResult": [
+      {
+        "country": "Canada"
+      },
+      {
+        "country": "Mexico"
+      },
+      {
+        "country": "USA"
+      }
+    ],
+    "answer": {
+      "explanation": "<strong>Goal:</strong> List all unique countries users are from, without duplication. <strong>Mechanics:</strong> SELECT DISTINCT removes repeated country values, and ORDER BY makes the result stable. Logic: Under the hood this is set deduplication\u2014each country appears once regardless of how many users come from it.",
+      "steps": [
+        {
+          "sql": "FROM\n  users",
+          "description": "Start with the users table."
+        },
+        {
+          "sql": "SELECT DISTINCT\n  country",
+          "description": "Select unique countries only once each."
+        },
+        {
+          "sql": "ORDER BY\n  country",
+          "description": "Optionally order for consistent output."
+        },
+        {
+          "sql": "SELECT DISTINCT\n  country\nFROM\n  users\nORDER BY\n  country;",
+          "description": "",
+          "final": true
+        }
+      ],
+      "exampleTable": {
+        "before": [
+          {
+            "name": "Alice",
+            "country": "USA"
+          },
+          {
+            "name": "Bob",
+            "country": "Canada"
+          },
+          {
+            "name": "Carol",
+            "country": "USA"
+          },
+          {
+            "name": "Dave",
+            "country": "Mexico"
+          }
+        ],
+        "after": [
+          {
+            "country": "Canada"
+          },
+          {
+            "country": "Mexico"
+          },
+          {
+            "country": "USA"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 18,
+    "level": "Beginner",
+    "title": "Top 3 Rated Movies",
+    "description": "List the three highest rated movies.",
+    "schema": "CREATE TABLE movies (id INTEGER, title TEXT, rating REAL);\nINSERT INTO movies VALUES (1, 'Movie A', 7.5), (2, 'Movie B', 9.0), (3, 'Movie C', 8.2), (4, 'Movie D', 9.5);",
+    "expectedResult": [
+      {
+        "title": "Movie D",
+        "rating": 9.5
+      },
+      {
+        "title": "Movie B",
+        "rating": 9.0
+      },
+      {
+        "title": "Movie C",
+        "rating": 8.2
+      }
+    ],
+    "answer": {
+      "explanation": "<strong>Goal:</strong> Surface the top three highest-rated movies. <strong>Mechanics:</strong> We select title and rating, sort by rating descending, and LIMIT to 3 to keep only the top three. Logic: Sorting orders the movies from best to worst; limiting trims to the top subset.",
+      "steps": [
+        {
+          "sql": "FROM\n  movies",
+          "description": "Start with the movies table."
+        },
+        {
+          "sql": "SELECT\n  title,\n  rating",
+          "description": "Choose title and rating to show."
+        },
+        {
+          "sql": "ORDER BY\n  rating DESC",
+          "description": "Sort so highest-rated films come first."
+        },
+        {
+          "sql": "LIMIT\n  3",
+          "description": "Only keep the top three entries."
+        },
+        {
+          "sql": "SELECT\n  title,\n  rating\nFROM\n  movies\nORDER BY\n  rating DESC\nLIMIT 3;",
+          "description": "",
+          "final": true
+        }
+      ],
+      "exampleTable": {
+        "before": [
+          {
+            "title": "Movie A",
+            "rating": 7.5
+          },
+          {
+            "title": "Movie B",
+            "rating": 9.0
+          },
+          {
+            "title": "Movie C",
+            "rating": 8.2
+          },
+          {
+            "title": "Movie D",
+            "rating": 9.5
+          }
+        ],
+        "after": [
+          {
+            "title": "Movie D",
+            "rating": 9.5
+          },
+          {
+            "title": "Movie B",
+            "rating": 9.0
+          },
+          {
+            "title": "Movie C",
+            "rating": 8.2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 13,
+    "level": "Beginner",
+    "title": "Book Count per Author",
+    "description": "List each author and how many books they've written, including authors with zero books.",
+    "schema": "CREATE TABLE authors (id INTEGER, name TEXT);\nCREATE TABLE books (id INTEGER, title TEXT, author_id INTEGER);\nINSERT INTO authors VALUES (1, 'Jane Austen'), (2, 'Mark Twain'), (3, 'New Author');\nINSERT INTO books VALUES (1, 'Pride and Prejudice', 1), (2, 'Emma', 1), (3, 'Adventures of Huckleberry Finn', 2);",
+    "expectedResult": [
+      {
+        "author": "Jane Austen",
+        "book_count": 2
+      },
+      {
+        "author": "Mark Twain",
+        "book_count": 1
+      },
+      {
+        "author": "New Author",
+        "book_count": 0
+      }
+    ],
+    "answer": {
+      "explanation": "<strong>Goal:</strong> Count how many books each author has written, including those with zero books. <strong>Mechanics:</strong> LEFT JOIN authors to books so authors without books still appear, GROUP BY author name, and use COUNT on book IDs. <strong>Math:</strong> COUNT aggregates the number of matching book rows per author; authors with no matches yield zero because LEFT JOIN preserves them.",
+      "steps": [
+        {
+          "sql": "FROM\n  authors\nLEFT JOIN\n  books ON authors.id = books.author_id",
+          "description": "Left join authors to books so every author shows, even if they haven't written a book."
+        },
+        {
+          "sql": "SELECT\n  authors.name AS author,\n  COUNT(books.id) AS book_count",
+          "description": "Select author name and count of their books."
+        },
+        {
+          "sql": "GROUP BY\n  authors.name",
+          "description": "Group by author so the count aggregates per author."
+        },
+        {
+          "sql": "SELECT\n  authors.name AS author,\n  COUNT(books.id) AS book_count\nFROM\n  authors\nLEFT JOIN\n  books ON authors.id = books.author_id\nGROUP BY\n  authors.name;",
+          "description": "",
+          "final": true
+        }
+      ],
+      "exampleTable": {
+        "before": [
+          {
+            "author": "Jane Austen",
+            "book": "Pride and Prejudice"
+          },
+          {
+            "author": "Jane Austen",
+            "book": "Emma"
+          },
+          {
+            "author": "Mark Twain",
+            "book": "Adventures of Huckleberry Finn"
+          },
+          {
+            "author": "New Author",
+            "book": null
+          }
+        ],
+        "after": [
+          {
+            "author": "Jane Austen",
+            "book_count": 2
+          },
+          {
+            "author": "Mark Twain",
+            "book_count": 1
+          },
+          {
+            "author": "New Author",
+            "book_count": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 15,
+    "level": "Beginner",
+    "title": "Last Order Date per Customer",
+    "description": "For each customer, show their name and the date of their most recent order.",
+    "schema": "CREATE TABLE customers (id INTEGER, name TEXT);\nCREATE TABLE orders (id INTEGER, customer_id INTEGER, order_date TEXT);\nINSERT INTO customers VALUES (1, 'Alice'), (2, 'Bob');\nINSERT INTO orders VALUES (1, 1, '2025-07-10'), (2, 1, '2025-07-20'), (3, 2, '2025-07-15');",
+    "expectedResult": [
+      {
+        "name": "Alice",
+        "last_order": "2025-07-20"
+      },
+      {
+        "name": "Bob",
+        "last_order": "2025-07-15"
+      }
+    ],
+    "answer": {
+      "explanation": "<strong>Goal:</strong> For each customer, find the date of their most recent order. <strong>Mechanics:</strong> Join customers to orders, GROUP BY customer name, and use MAX on order_date to get the latest. Logic: MAX picks the highest (most recent) date from the set of dates per customer, giving each customer's last activity.",
+      "steps": [
+        {
+          "sql": "FROM\n  customers\nJOIN\n  orders ON customers.id = orders.customer_id",
+          "description": "Associate each order with its customer."
+        },
+        {
+          "sql": "SELECT\n  customers.name,\n  MAX(orders.order_date) AS last_order",
+          "description": "Select customer name and the most recent order date using <strong>MAX()</strong>."
+        },
+        {
+          "sql": "GROUP BY\n  customers.name",
+          "description": "Group by customer to aggregate their orders."
+        },
+        {
+          "sql": "SELECT\n  customers.name,\n  MAX(orders.order_date) AS last_order\nFROM\n  customers\nJOIN\n  orders ON customers.id = orders.customer_id\nGROUP BY\n  customers.name;",
+          "description": "",
+          "final": true
+        }
+      ],
+      "exampleTable": {
+        "before": [
+          {
+            "customer": "Alice",
+            "order_date": "2025-07-10"
+          },
+          {
+            "customer": "Alice",
+            "order_date": "2025-07-20"
+          },
+          {
+            "customer": "Bob",
+            "order_date": "2025-07-15"
+          }
+        ],
+        "after": [
+          {
+            "name": "Alice",
+            "last_order": "2025-07-20"
+          },
+          {
+            "name": "Bob",
+            "last_order": "2025-07-15"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 17,
+    "level": "Beginner",
+    "title": "Recently Active Users",
+    "description": "Show users who have logged in within the 30 days before a fixed snapshot date.",
+    "schema": "CREATE TABLE users (id INTEGER, name TEXT, last_login TEXT);\nINSERT INTO users VALUES (1, 'Alice', '2025-07-10'), (2, 'Bob', '2025-07-20'), (3, 'Charlie', '2025-06-01');",
+    "expectedResult": [
+      {
+        "name": "Alice",
+        "last_login": "2025-07-10"
+      },
+      {
+        "name": "Bob",
+        "last_login": "2025-07-20"
+      }
+    ],
+    "answer": {
+      "explanation": "<strong>Goal:</strong> Identify users who have logged in within the 30 days before a fixed snapshot date (2025-08-01). <strong>Mechanics:</strong> Filter by comparing last_login against the fixed threshold date('2025-08-01', '-30 days'). Logic: date(...) >= date('2025-08-01', '-30 days') selects any login whose date is within the 30-day window prior to the snapshot, making the challenge deterministic.",
+      "steps": [
+        {
+          "sql": "FROM\n  users",
+          "description": "Start from the users table."
+        },
+        {
+          "sql": "SELECT\n  name,\n  last_login",
+          "description": "Pick the relevant fields to display."
+        },
+        {
+          "sql": "WHERE\n  date(last_login) >= date('2025-08-01', '-30 days')",
+          "description": "Filter to only users who logged in during the last 30 days."
+        },
+        {
+          "sql": "SELECT\n  name,\n  last_login\nFROM\n  users\nWHERE\n  date(last_login) >= date('2025-08-01', '-30 days')\nORDER BY\n  last_login;",
+          "description": "",
+          "final": true
+        }
+      ],
+      "exampleTable": {
+        "before": [
+          {
+            "name": "Alice",
+            "last_login": "2025-07-10"
+          },
+          {
+            "name": "Bob",
+            "last_login": "2025-07-20"
+          },
+          {
+            "name": "Charlie",
+            "last_login": "2025-06-01"
+          }
+        ],
+        "after": [
+          {
+            "name": "Alice",
+            "last_login": "2025-07-10"
+          },
+          {
+            "name": "Bob",
+            "last_login": "2025-07-20"
+          }
+        ]
+      }
+    },
+    "referenceDate": "2025-08-01"
+  },
+  {
+    "id": 12,
+    "level": "Beginner",
+    "title": "Low Stock Products",
+    "description": "List product names and their stock for items whose inventory is below 5.",
+    "schema": "CREATE TABLE products (id INTEGER, name TEXT);\nCREATE TABLE inventory (product_id INTEGER, stock INTEGER);\nINSERT INTO products VALUES (1, 'Widget'), (2, 'Gizmo'), (3, 'Doodad');\nINSERT INTO inventory VALUES (1, 10), (2, 3), (3, 4);",
+    "expectedResult": [
+      {
+        "name": "Gizmo",
+        "stock": 3
+      },
+      {
+        "name": "Doodad",
+        "stock": 4
+      }
+    ],
+    "answer": {
+      "explanation": "<strong>Goal:</strong> List products that are running low in stock (below 5). <strong>Mechanics:</strong> Join products to their inventory and apply a WHERE filter on stock < 5. Logic: This selects the subset of items whose current quantity is less than the safety threshold, highlighting potential restocking needs.",
+      "steps": [
+        {
+          "sql": "FROM\n  products\nJOIN\n  inventory ON products.id = inventory.product_id",
+          "description": "Join each product to its inventory record."
+        },
+        {
+          "sql": "SELECT\n  products.name,\n  inventory.stock",
+          "description": "Select product name and current stock."
+        },
+        {
+          "sql": "WHERE\n  inventory.stock < 5",
+          "description": "Filter to only include items with stock below 5."
+        },
+        {
+          "sql": "SELECT\n  products.name,\n  inventory.stock\nFROM\n  products\nJOIN\n  inventory ON products.id = inventory.product_id\nWHERE\n  inventory.stock < 5;",
+          "description": "",
+          "final": true
+        }
+      ],
+      "exampleTable": {
+        "before": [
+          {
+            "product_id": 1,
+            "name": "Widget",
+            "stock": 10
+          },
+          {
+            "product_id": 2,
+            "name": "Gizmo",
+            "stock": 3
+          },
+          {
+            "product_id": 3,
+            "name": "Doodad",
+            "stock": 4
+          }
+        ],
+        "after": [
+          {
+            "name": "Gizmo",
+            "stock": 3
+          },
+          {
+            "name": "Doodad",
+            "stock": 4
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 7,
+    "level": "Beginner",
+    "title": "Employee Count by Department",
+    "description": "Show each department's name and how many employees belong to it (include departments with zero employees).",
+    "schema": "CREATE TABLE departments (id INTEGER, name TEXT);\nCREATE TABLE employees (id INTEGER, name TEXT, department_id INTEGER);\nINSERT INTO departments VALUES (1, 'Engineering'), (2, 'Marketing'), (3, 'HR');\nINSERT INTO employees VALUES (1, 'Alice', 1), (2, 'Bob', 1), (3, 'Carol', 2);",
+    "expectedResult": [
+      {
+        "department": "Engineering",
+        "employee_count": 2
+      },
+      {
+        "department": "Marketing",
+        "employee_count": 1
+      },
+      {
+        "department": "HR",
+        "employee_count": 0
+      }
+    ],
+    "answer": {
+      "explanation": "<strong>Goal:</strong> Show each department and how many employees work in it, including departments with none. <strong>Mechanics:</strong> LEFT JOIN departments to employees so empty departments are preserved, GROUP BY department name, and COUNT employee IDs. <strong>Math:</strong> COUNT tallies employees per department; with no employees the count is zero due to the outer join.",
+      "steps": [
+        {
+          "sql": "FROM\n  departments\nLEFT JOIN\n  employees ON departments.id = employees.department_id",
+          "description": "Left join ensures all departments are present, even those with no employees."
+        },
+        {
+          "sql": "SELECT\n  departments.name AS department,\n  COUNT(employees.id) AS employee_count",
+          "description": "Select the department name and count of associated employee IDs."
+        },
+        {
+          "sql": "GROUP BY\n  departments.name",
+          "description": "Group by department to aggregate employee counts per department."
+        },
+        {
+          "sql": "SELECT\n  departments.name AS department,\n  COUNT(employees.id) AS employee_count\nFROM\n  departments\nLEFT JOIN\n  employees ON departments.id = employees.department_id\nGROUP BY\n  departments.name;",
+          "description": "",
+          "final": true
+        }
+      ],
+      "exampleTable": {
+        "before": [
+          {
+            "department_id": 1,
+            "department": "Engineering",
+            "employee_id": 1,
+            "employee_name": "Alice"
+          },
+          {
+            "department_id": 1,
+            "department": "Engineering",
+            "employee_id": 2,
+            "employee_name": "Bob"
+          },
+          {
+            "department_id": 2,
+            "department": "Marketing",
+            "employee_id": 3,
+            "employee_name": "Carol"
+          },
+          {
+            "department_id": 3,
+            "department": "HR",
+            "employee_id": null,
+            "employee_name": null
+          }
+        ],
+        "after": [
+          {
+            "department": "Engineering",
+            "employee_count": 2
+          },
+          {
+            "department": "Marketing",
+            "employee_count": 1
+          },
+          {
+            "department": "HR",
+            "employee_count": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 9,
+    "level": "Intermediate",
+    "title": "Students with No Enrollments",
+    "description": "List all students who are not enrolled in any course.",
+    "schema": "CREATE TABLE students (id INTEGER, name TEXT);\nCREATE TABLE courses (id INTEGER, title TEXT);\nCREATE TABLE enrollments (student_id INTEGER, course_id INTEGER);\nINSERT INTO students VALUES (1, 'Alice'), (2, 'Bob'), (3, 'Charlie');\nINSERT INTO courses VALUES (1, 'Math'), (2, 'History');\nINSERT INTO enrollments VALUES (1, 1), (1, 2), (3, 1);",
+    "expectedResult": [
+      {
+        "name": "Bob"
+      }
+    ],
+    "answer": {
+      "explanation": "<strong>Goal:</strong> Find students who aren\u2019t enrolled in any course. <strong>Mechanics:</strong> LEFT JOIN students to enrollments and filter where the enrollment side is NULL. Logic: NULL on the joined enrollment means there was no matching enrollment record, so those students have zero courses.",
+      "steps": [
+        {
+          "sql": "FROM\n  students\nLEFT JOIN\n  enrollments ON students.id = enrollments.student_id",
+          "description": "Left join ensures all students appear, including those without enrollments."
+        },
+        {
+          "sql": "SELECT\n  students.name",
+          "description": "Select the student name for those without enrollments."
+        },
+        {
+          "sql": "WHERE\n  enrollments.course_id IS NULL",
+          "description": "Filter to only students who have no matching enrollment record."
+        },
+        {
+          "sql": "SELECT\n  students.name\nFROM\n  students\nLEFT JOIN\n  enrollments ON students.id = enrollments.student_id\nWHERE\n  enrollments.course_id IS NULL;",
+          "description": "",
+          "final": true
+        }
+      ],
+      "exampleTable": {
+        "before": [
+          {
+            "student_id": 1,
+            "name": "Alice",
+            "course_id": 1
+          },
+          {
+            "student_id": 1,
+            "name": "Alice",
+            "course_id": 2
+          },
+          {
+            "student_id": 3,
+            "name": "Charlie",
+            "course_id": 1
+          },
+          {
+            "student_id": 2,
+            "name": "Bob",
+            "course_id": null
+          }
+        ],
+        "after": [
+          {
+            "name": "Bob"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 11,
+    "level": "Intermediate",
+    "title": "Monthly New Users",
+    "description": "Count how many users signed up in each month.",
+    "schema": "CREATE TABLE users (id INTEGER, name TEXT, created_at TEXT);\nINSERT INTO users VALUES (1, 'Alice', '2025-06-15'), (2, 'Bob', '2025-06-20'), (3, 'Carol', '2025-07-05'), (4, 'Dave', '2025-07-25'), (5, 'Eve', '2025-08-01');",
+    "expectedResult": [
+      {
+        "month": "2025-06",
+        "new_users": 2
+      },
+      {
+        "month": "2025-07",
+        "new_users": 2
+      },
+      {
+        "month": "2025-08",
+        "new_users": 1
+      }
+    ],
+    "answer": {
+      "explanation": "<strong>Goal:</strong> Count new user signups per calendar month. <strong>Mechanics:</strong> Extract the year-month string from created_at with strftime, GROUP BY that, and COUNT users. Logic: This buckets users into months (e.g., '2025-07') and sums how many fell into each bucket, producing a monthly time series; ordering makes the trend chronological.",
+      "steps": [
+        {
+          "sql": "FROM\n  users",
+          "description": "Start with the users table."
+        },
+        {
+          "sql": "SELECT\n  strftime('%Y-%m', created_at) AS month,\n  COUNT(*) AS new_users",
+          "description": "Extract year-month and count users per extracted month."
+        },
+        {
+          "sql": "GROUP BY\n  month",
+          "description": "Group by the derived month to aggregate counts."
+        },
+        {
+          "sql": "SELECT\n  strftime('%Y-%m', created_at) AS month,\n  COUNT(*) AS new_users\nFROM\n  users\nGROUP BY\n  month\nORDER BY\n  month;",
+          "description": "",
+          "final": true
+        }
+      ],
+      "exampleTable": {
+        "before": [
+          {
+            "id": 1,
+            "name": "Alice",
+            "created_at": "2025-06-15"
+          },
+          {
+            "id": 2,
+            "name": "Bob",
+            "created_at": "2025-06-20"
+          },
+          {
+            "id": 3,
+            "name": "Carol",
+            "created_at": "2025-07-05"
+          },
+          {
+            "id": 4,
+            "name": "Dave",
+            "created_at": "2025-07-25"
+          },
+          {
+            "id": 5,
+            "name": "Eve",
+            "created_at": "2025-08-01"
+          }
+        ],
+        "after": [
+          {
+            "month": "2025-06",
+            "new_users": 2
+          },
+          {
+            "month": "2025-07",
+            "new_users": 2
+          },
+          {
+            "month": "2025-08",
+            "new_users": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 20,
+    "level": "Intermediate",
+    "title": "Total Quantity per Category",
+    "description": "For each product category, show the total quantity sold.",
+    "schema": "CREATE TABLE categories (id INTEGER, name TEXT);\nCREATE TABLE products (id INTEGER, name TEXT, category_id INTEGER);\nCREATE TABLE sales (id INTEGER, product_id INTEGER, quantity INTEGER);\nINSERT INTO categories VALUES (1, 'Stationery'), (2, 'Electronics');\nINSERT INTO products VALUES (1, 'Pen', 1), (2, 'Notebook', 1), (3, 'Headphones', 2);\nINSERT INTO sales VALUES (1, 1, 10), (2, 2, 5), (3, 3, 7), (4, 1, 3);",
+    "expectedResult": [
+      {
+        "category": "Stationery",
+        "total_quantity": 18
+      },
+      {
+        "category": "Electronics",
+        "total_quantity": 7
+      }
+    ],
+    "answer": {
+      "explanation": "<strong>Goal:</strong> Compute total quantity sold for each product category. <strong>Mechanics:</strong> Join categories to products to sales, GROUP BY category name, and SUM the sold quantities. <strong>Math:</strong> For each category, we add up all quantities of its products sold to get a category-level total.",
+      "steps": [
+        {
+          "sql": "FROM\n  categories\nJOIN\n  products ON categories.id = products.category_id",
+          "description": "Associate each product with its category."
+        },
+        {
+          "sql": "JOIN\n  sales ON products.id = sales.product_id",
+          "description": "Link sales to products so we can count quantities."
+        },
+        {
+          "sql": "SELECT\n  categories.name AS category,\n  SUM(sales.quantity) AS total_quantity",
+          "description": "Select category and total quantity sold using <strong>SUM()</strong>."
+        },
+        {
+          "sql": "GROUP BY\n  categories.name",
+          "description": "Group to aggregate per category."
+        },
+        {
+          "sql": "SELECT\n  categories.name AS category,\n  SUM(sales.quantity) AS total_quantity\nFROM\n  categories\nJOIN\n  products ON categories.id = products.category_id\nJOIN\n  sales ON products.id = sales.product_id\nGROUP BY\n  categories.name;",
+          "description": "",
+          "final": true
+        }
+      ],
+      "exampleTable": {
+        "before": [
+          {
+            "category": "Stationery",
+            "product": "Pen",
+            "quantity": 10
+          },
+          {
+            "category": "Stationery",
+            "product": "Notebook",
+            "quantity": 5
+          },
+          {
+            "category": "Electronics",
+            "product": "Headphones",
+            "quantity": 7
+          },
+          {
+            "category": "Stationery",
+            "product": "Pen",
+            "quantity": 3
+          }
+        ],
+        "after": [
+          {
+            "category": "Stationery",
+            "total_quantity": 18
+          },
+          {
+            "category": "Electronics",
+            "total_quantity": 7
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 8,
+    "level": "Intermediate",
+    "title": "Top Revenue Product",
+    "description": "Find the single product that generated the most total revenue (quantity * price_per_unit).",
+    "schema": "CREATE TABLE products (id INTEGER, name TEXT);\nCREATE TABLE sales (id INTEGER, product_id INTEGER, quantity INTEGER, price_per_unit REAL);\nINSERT INTO products VALUES (1, 'Widget'), (2, 'Gizmo'), (3, 'Doodad');\nINSERT INTO sales VALUES (1, 1, 10, 2.5), (2, 2, 5, 10), (3, 1, 3, 2.5), (4, 3, 20, 1.0);",
+    "expectedResult": [
+      {
+        "name": "Gizmo",
+        "revenue": 50.0
+      }
+    ],
+    "answer": {
+      "explanation": "<strong>Goal:</strong> Identify the single product generating the most revenue. <strong>Mechanics:</strong> Join products to sales, compute revenue per sale as quantity * price_per_unit, SUM that per product, then ORDER BY descending and LIMIT 1. <strong>Math:</strong> Revenue is the sum of individual sale contributions; we pick the product with highest cumulative revenue.",
+      "steps": [
+        {
+          "sql": "FROM\n  products\nJOIN\n  sales ON products.id = sales.product_id",
+          "description": "Join products with their sales to associate each sale with its product."
+        },
+        {
+          "sql": "SELECT\n  products.name,\n  SUM(sales.quantity * sales.price_per_unit) AS revenue",
+          "description": "Select product name and compute total revenue using quantity times unit price, summed per product."
+        },
+        {
+          "sql": "GROUP BY\n  products.name",
+          "description": "Group so revenue is aggregated per product."
+        },
+        {
+          "sql": "ORDER BY\n  revenue DESC\nLIMIT 1",
+          "description": "Order by revenue descending and take the top product."
+        },
+        {
+          "sql": "SELECT\n  products.name,\n  SUM(sales.quantity * sales.price_per_unit) AS revenue\nFROM\n  products\nJOIN\n  sales ON products.id = sales.product_id\nGROUP BY\n  products.name\nORDER BY\n  revenue DESC\nLIMIT 1;",
+          "description": "",
+          "final": true
+        }
+      ],
+      "exampleTable": {
+        "before": [
+          {
+            "sale_id": 1,
+            "product": "Widget",
+            "quantity": 10,
+            "price_per_unit": 2.5
+          },
+          {
+            "sale_id": 2,
+            "product": "Gizmo",
+            "quantity": 5,
+            "price_per_unit": 10
+          },
+          {
+            "sale_id": 3,
+            "product": "Widget",
+            "quantity": 3,
+            "price_per_unit": 2.5
+          },
+          {
+            "sale_id": 4,
+            "product": "Doodad",
+            "quantity": 20,
+            "price_per_unit": 1.0
+          }
+        ],
+        "after": [
+          {
+            "name": "Gizmo",
+            "revenue": 50.0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 21,
+    "level": "Intermediate",
+    "title": "Repeat Customers",
+    "description": "List customers who have placed more than one order.",
+    "schema": "CREATE TABLE customers (id INTEGER, name TEXT);\nCREATE TABLE orders (id INTEGER, customer_id INTEGER, amount REAL);\nINSERT INTO customers VALUES (1, 'Alice'), (2, 'Bob'), (3, 'Carol');\nINSERT INTO orders VALUES (1, 1, 100), (2, 1, 150), (3, 2, 200), (4, 3, 50), (5, 2, 75);",
+    "expectedResult": [
+      {
+        "name": "Alice",
+        "order_count": 2
+      },
+      {
+        "name": "Bob",
+        "order_count": 2
+      }
+    ],
+    "answer": {
+      "explanation": "<strong>Goal:</strong> Find customers who placed more than one order. <strong>Mechanics:</strong> Join customers to orders, GROUP BY customer, and apply HAVING COUNT(*) > 1 to keep repeat buyers. Logic: COUNT(*) tallies orders per customer; HAVING filters groups after aggregation to those with multiple orders.",
+      "steps": [
+        {
+          "sql": "FROM\n  customers\nJOIN\n  orders ON customers.id = orders.customer_id",
+          "description": "Associate orders with their customers."
+        },
+        {
+          "sql": "SELECT\n  customers.name,\n  COUNT(*) AS order_count",
+          "description": "Select the customer's name and count their orders."
+        },
+        {
+          "sql": "GROUP BY\n  customers.name",
+          "description": "Group by customer to aggregate order counts."
+        },
+        {
+          "sql": "HAVING\n  COUNT(*) > 1",
+          "description": "Filter to only customers with more than one order."
+        },
+        {
+          "sql": "SELECT\n  customers.name,\n  COUNT(*) AS order_count\nFROM\n  customers\nJOIN\n  orders ON customers.id = orders.customer_id\nGROUP BY\n  customers.name\nHAVING\n  COUNT(*) > 1;",
+          "description": "",
+          "final": true
+        }
+      ],
+      "exampleTable": {
+        "before": [
+          {
+            "customer": "Alice",
+            "order_id": 1,
+            "amount": 100
+          },
+          {
+            "customer": "Alice",
+            "order_id": 2,
+            "amount": 150
+          },
+          {
+            "customer": "Bob",
+            "order_id": 3,
+            "amount": 200
+          },
+          {
+            "customer": "Bob",
+            "order_id": 5,
+            "amount": 75
+          },
+          {
+            "customer": "Carol",
+            "order_id": 4,
+            "amount": 50
+          }
+        ],
+        "after": [
+          {
+            "name": "Alice",
+            "order_count": 2
+          },
+          {
+            "name": "Bob",
+            "order_count": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 22,
+    "level": "Intermediate",
+    "title": "Average Order Value by Day",
+    "description": "Compute the average order value for each calendar day.",
+    "schema": "CREATE TABLE orders (id INTEGER, amount REAL, order_date TEXT);\nINSERT INTO orders VALUES (1, 100, '2025-07-01'), (2, 50, '2025-07-01'), (3, 200, '2025-07-02'), (4, 150, '2025-07-03');",
+    "expectedResult": [
+      {
+        "day": "2025-07-01",
+        "avg_value": 75.0
+      },
+      {
+        "day": "2025-07-02",
+        "avg_value": 200.0
+      },
+      {
+        "day": "2025-07-03",
+        "avg_value": 150.0
+      }
+    ],
+    "answer": {
+      "explanation": "<strong>Goal:</strong> Compute average order value per day. <strong>Mechanics:</strong> Normalize each order_date to its calendar day, GROUP BY that day, and use AVG on amount. <strong>Math:</strong> For each day, average = sum(amounts)/number_of_orders, giving the typical order size that day.",
+      "steps": [
+        {
+          "sql": "FROM\n  orders",
+          "description": "Start from orders."
+        },
+        {
+          "sql": "SELECT\n  strftime('%Y-%m-%d', order_date) AS day,\n  AVG(amount) AS avg_value",
+          "description": "Extract the day and compute average amount."
+        },
+        {
+          "sql": "GROUP BY\n  day",
+          "description": "Group by each day to aggregate."
+        },
+        {
+          "sql": "SELECT\n  strftime('%Y-%m-%d', order_date) AS day,\n  AVG(amount) AS avg_value\nFROM\n  orders\nGROUP BY\n  day\nORDER BY\n  day;",
+          "description": "",
+          "final": true
+        }
+      ],
+      "exampleTable": {
+        "before": [
+          {
+            "order_date": "2025-07-01",
+            "amount": 100
+          },
+          {
+            "order_date": "2025-07-01",
+            "amount": 50
+          },
+          {
+            "order_date": "2025-07-02",
+            "amount": 200
+          },
+          {
+            "order_date": "2025-07-03",
+            "amount": 150
+          }
+        ],
+        "after": [
+          {
+            "day": "2025-07-01",
+            "avg_value": 75.0
+          },
+          {
+            "day": "2025-07-02",
+            "avg_value": 200.0
+          },
+          {
+            "day": "2025-07-03",
+            "avg_value": 150.0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 23,
+    "level": "Intermediate",
+    "title": "Category Share of Total Sales",
+    "description": "For each category, show its total revenue and what percentage of overall revenue it represents.",
+    "schema": "CREATE TABLE categories (id INTEGER, name TEXT);\nCREATE TABLE products (id INTEGER, name TEXT, category_id INTEGER);\nCREATE TABLE sales (id INTEGER, product_id INTEGER, quantity INTEGER, price_per_unit REAL);\nINSERT INTO categories VALUES (1, 'Stationery'), (2, 'Electronics');\nINSERT INTO products VALUES (1, 'Pen', 1), (2, 'Notebook', 1), (3, 'Phone', 2);\nINSERT INTO sales VALUES (1, 1, 10, 1), (2, 2, 5, 2), (3, 3, 2, 500);",
+    "expectedResult": [
+      {
+        "category": "Stationery",
+        "revenue": 20.0,
+        "share_percent": 1.96
+      },
+      {
+        "category": "Electronics",
+        "revenue": 1000.0,
+        "share_percent": 98.04
+      }
+    ],
+    "answer": {
+      "explanation": "<strong>Goal:</strong> Show each category's total revenue and its share of overall revenue. <strong>Mechanics:</strong> Join categories \u2192 products \u2192 sales to get per-category revenue, compute overall revenue (via a CTE), then calculate percentage share using division and rounding. <strong>Math:</strong> Category share = (category_revenue / total_revenue) * 100; using a CTE isolates the baseline total for reuse.",
+      "steps": [
+        {
+          "sql": "FROM\n  categories\nJOIN\n  products ON categories.id = products.category_id\nJOIN\n  sales ON products.id = sales.product_id",
+          "description": "Link categories to their sales through products."
+        },
+        {
+          "sql": "SELECT\n  categories.name AS category,\n  SUM(sales.quantity * sales.price_per_unit) AS revenue",
+          "description": "Compute revenue per category."
+        },
+        {
+          "sql": "WITH total AS (SELECT SUM(quantity * price_per_unit) AS overall FROM sales)",
+          "description": "Compute overall revenue in a CTE."
+        },
+        {
+          "sql": "SELECT\n  categories.name AS category,\n  SUM(sales.quantity * sales.price_per_unit) AS revenue,\n  ROUND((SUM(sales.quantity * sales.price_per_unit) * 100.0) / (SELECT overall FROM total), 2) AS share_percent\nFROM\n  categories\nJOIN\n  products ON categories.id = products.category_id\nJOIN\n  sales ON products.id = sales.product_id\nGROUP BY\n  categories.name;",
+          "description": "",
+          "final": true
+        }
+      ],
+      "exampleTable": {
+        "before": [
+          {
+            "category": "Stationery",
+            "product": "Pen",
+            "quantity": 10,
+            "price_per_unit": 1
+          },
+          {
+            "category": "Stationery",
+            "product": "Notebook",
+            "quantity": 5,
+            "price_per_unit": 2
+          },
+          {
+            "category": "Electronics",
+            "product": "Phone",
+            "quantity": 2,
+            "price_per_unit": 500
+          }
+        ],
+        "after": [
+          {
+            "category": "Stationery",
+            "revenue": 20.0,
+            "share_percent": 1.96
+          },
+          {
+            "category": "Electronics",
+            "revenue": 1000.0,
+            "share_percent": 98.04
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 24,
+    "level": "Intermediate",
+    "title": "Inactive Users",
+    "description": "List users who have not placed any order in the 60 days leading up to a fixed snapshot date.",
+    "schema": "CREATE TABLE users (id INTEGER, name TEXT);\nCREATE TABLE orders (id INTEGER, user_id INTEGER, order_date TEXT);\nINSERT INTO users VALUES (1, 'Alice'), (2, 'Bob'), (3, 'Carol');\nINSERT INTO orders VALUES (1, 1, '2025-07-10'), (2, 2, '2025-05-01');",
+    "expectedResult": [
+      {
+        "name": "Bob"
+      },
+      {
+        "name": "Carol"
+      }
+    ],
+    "answer": {
+      "explanation": "<strong>Goal:</strong> List users inactive in the 60 days before a fixed snapshot date (2025-08-01). <strong>Mechanics:</strong> LEFT JOIN users to orders restricted to that 60-day window (date >= date('2025-08-01','-60 days')) and filter where the joined order is NULL. Logic: If a user has no order in the recent window, their joined order side is NULL.",
+      "steps": [
+        {
+          "sql": "FROM\n  users\nLEFT JOIN\n  orders ON users.id = orders.user_id AND date(orders.order_date) >= date('2025-08-01', '-60 days')",
+          "description": "Attempt to join only recent orders (last 60 days)."
+        },
+        {
+          "sql": "SELECT\n  users.name",
+          "description": "Select user names."
+        },
+        {
+          "sql": "WHERE\n  orders.id IS NULL",
+          "description": "Filter to users with no recent orders."
+        },
+        {
+          "sql": "SELECT\n  users.name\nFROM\n  users\nLEFT JOIN\n  orders ON users.id = orders.user_id AND date(orders.order_date) >= date('2025-08-01', '-60 days')\nWHERE\n  orders.id IS NULL;",
+          "description": "",
+          "final": true
+        }
+      ],
+      "exampleTable": {
+        "before": [
+          {
+            "name": "Alice",
+            "last_order": "2025-07-10"
+          },
+          {
+            "name": "Bob",
+            "last_order": "2025-05-01"
+          },
+          {
+            "name": "Carol",
+            "last_order": null
+          }
+        ],
+        "after": [
+          {
+            "name": "Bob"
+          },
+          {
+            "name": "Carol"
+          }
+        ]
+      }
+    },
+    "referenceDate": "2025-08-01"
+  },
+  {
+    "id": 25,
+    "level": "Hard",
+    "title": "Top 3 Customers by Lifetime Spend",
+    "description": "Rank customers by total spending and return the top three, including ties.",
+    "schema": "CREATE TABLE customers (id INTEGER, name TEXT);\nCREATE TABLE orders (id INTEGER, customer_id INTEGER, amount REAL);\nINSERT INTO customers VALUES (1, 'Alice'), (2, 'Bob'), (3, 'Carol'), (4, 'Dave');\nINSERT INTO orders VALUES (1, 1, 200), (2, 1, 100), (3, 2, 150), (4, 3, 150), (5, 4, 50);",
+    "expectedResult": [
+      {
+        "name": "Alice",
+        "total_spent": 300,
+        "rank": 1
+      },
+      {
+        "name": "Bob",
+        "total_spent": 150,
+        "rank": 2
+      },
+      {
+        "name": "Carol",
+        "total_spent": 150,
+        "rank": 2
+      }
+    ],
+    "answer": {
+      "explanation": "<strong>Goal:</strong> Rank customers by lifetime spend and return the top three including ties. <strong>Mechanics:</strong> Aggregate spending per customer, use DENSE_RANK() window function to assign ranks based on descending total spend, then filter to top ranks allowing ties. <strong>Math:</strong> DENSE_RANK ensures tied spenders share the same rank without gaps, so customers with equal totals are treated equally.",
+      "steps": [
+        {
+          "sql": "FROM\n  customers\nJOIN\n  orders ON customers.id = orders.customer_id",
+          "description": "Link customers to their orders."
+        },
+        {
+          "sql": "SELECT\n  customers.name,\n  SUM(orders.amount) AS total_spent",
+          "description": "Compute total spent per customer."
+        },
+        {
+          "sql": "DENSE_RANK() OVER (ORDER BY SUM(orders.amount) DESC) AS rank",
+          "description": "Assign dense ranks based on spending."
+        },
+        {
+          "sql": "SELECT name, total_spent, rank FROM (\n  SELECT\n    customers.name,\n    SUM(orders.amount) AS total_spent,\n    DENSE_RANK() OVER (ORDER BY SUM(orders.amount) DESC) AS rank\n  FROM customers\n  JOIN orders ON customers.id = orders.customer_id\n  GROUP BY customers.name\n) WHERE rank <= 2;",
+          "description": "Wrap the ranking in a subquery and filter to top ranks (1 and tied 2).",
+          "final": true
+        }
+      ],
+      "exampleTable": {
+        "before": [
+          {
+            "name": "Alice",
+            "amount": 200
+          },
+          {
+            "name": "Alice",
+            "amount": 100
+          },
+          {
+            "name": "Bob",
+            "amount": 150
+          },
+          {
+            "name": "Carol",
+            "amount": 150
+          },
+          {
+            "name": "Dave",
+            "amount": 50
+          }
+        ],
+        "after": [
+          {
+            "name": "Alice",
+            "total_spent": 300,
+            "rank": 1
+          },
+          {
+            "name": "Bob",
+            "total_spent": 150,
+            "rank": 2
+          },
+          {
+            "name": "Carol",
+            "total_spent": 150,
+            "rank": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 26,
+    "level": "Hard",
+    "title": "Running Total of Daily Sales",
+    "description": "For each day, show total sales and a cumulative running total across days.",
+    "schema": "CREATE TABLE orders (id INTEGER, amount REAL, order_date TEXT);\nINSERT INTO orders VALUES (1, 100, '2025-07-01'), (2, 50, '2025-07-01'), (3, 200, '2025-07-02'), (4, 150, '2025-07-03');",
+    "expectedResult": [
+      {
+        "day": "2025-07-01",
+        "total_sales": 150,
+        "running_total": 150
+      },
+      {
+        "day": "2025-07-02",
+        "total_sales": 200,
+        "running_total": 350
+      },
+      {
+        "day": "2025-07-03",
+        "total_sales": 150,
+        "running_total": 500
+      }
+    ],
+    "answer": {
+      "explanation": "<strong>Goal:</strong> Provide daily sales totals and a running cumulative sum over time. <strong>Mechanics:</strong> First aggregate sales per day, then apply a window function to compute the cumulative sum ordered by day. <strong>Math:</strong> Running total on day \\(d\\) is the sum of all previous days' totals including day \\(d\\), giving a non-decreasing sequence that reflects growth over time.",
+      "steps": [
+        {
+          "sql": "FROM\n  orders",
+          "description": "Start with the orders table."
+        },
+        {
+          "sql": "SELECT\n  strftime('%Y-%m-%d', order_date) AS day,\n  SUM(amount) AS total_sales",
+          "description": "Aggregate sales by day."
+        },
+        {
+          "sql": "SELECT\n  day,\n  total_sales,\n  SUM(total_sales) OVER (ORDER BY day ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS running_total\nFROM (\n  SELECT\n    strftime('%Y-%m-%d', order_date) AS day,\n    SUM(amount) AS total_sales\n  FROM orders\n  GROUP BY day\n) ORDER BY day;",
+          "description": "Compute running total using window over ordered days.",
+          "final": true
+        }
+      ],
+      "exampleTable": {
+        "before": [
+          {
+            "order_date": "2025-07-01",
+            "amount": 100
+          },
+          {
+            "order_date": "2025-07-01",
+            "amount": 50
+          },
+          {
+            "order_date": "2025-07-02",
+            "amount": 200
+          },
+          {
+            "order_date": "2025-07-03",
+            "amount": 150
+          }
+        ],
+        "after": [
+          {
+            "day": "2025-07-01",
+            "total_sales": 150,
+            "running_total": 150
+          },
+          {
+            "day": "2025-07-02",
+            "total_sales": 200,
+            "running_total": 350
+          },
+          {
+            "day": "2025-07-03",
+            "total_sales": 150,
+            "running_total": 500
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 27,
+    "level": "Hard",
+    "title": "Find Gaps in Sequential Order IDs",
+    "description": "Identify missing order IDs in a sequence.",
+    "schema": "CREATE TABLE orders (id INTEGER);\nINSERT INTO orders VALUES (1), (2), (4), (5), (7);",
+    "expectedResult": [
+      {
+        "missing_id": 3
+      },
+      {
+        "missing_id": 6
+      }
+    ],
+    "answer": {
+      "explanation": "<strong>Goal:</strong> Detect missing sequential order IDs. <strong>Mechanics:</strong> Left join the table to itself offset by +1 and look for NULLs on the joined side, excluding the final existing ID. Logic: If ID+1 doesn\u2019t exist for an existing ID and it\u2019s not the last one, that gap is a missing sequence number.",
+      "steps": [
+        {
+          "sql": "FROM\n  orders o1\nLEFT JOIN\n  orders o2 ON o1.id + 1 = o2.id",
+          "description": "Left join orders to the next possible ID."
+        },
+        {
+          "sql": "SELECT\n  o1.id + 1 AS missing_id",
+          "description": "Compute the candidate missing ID."
+        },
+        {
+          "sql": "WHERE\n  o2.id IS NULL AND o1.id < (SELECT MAX(id) FROM orders)",
+          "description": "Filter where the next ID is absent, excluding the last existing ID."
+        },
+        {
+          "sql": "SELECT\n  o1.id + 1 AS missing_id\nFROM\n  orders o1\nLEFT JOIN\n  orders o2 ON o1.id + 1 = o2.id\nWHERE\n  o2.id IS NULL AND o1.id < (SELECT MAX(id) FROM orders);",
+          "description": "",
+          "final": true
+        }
+      ],
+      "exampleTable": {
+        "before": [
+          {
+            "id": 1
+          },
+          {
+            "id": 2
+          },
+          {
+            "id": 4
+          },
+          {
+            "id": 5
+          },
+          {
+            "id": 7
+          }
+        ],
+        "after": [
+          {
+            "missing_id": 3
+          },
+          {
+            "missing_id": 6
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 28,
+    "level": "Hard",
+    "title": "Monthly Growth Rate of New Users",
+    "description": "Compute month-over-month growth percentage of new user signups.",
+    "schema": "CREATE TABLE users (id INTEGER, name TEXT, created_at TEXT);\nINSERT INTO users VALUES (1, 'Alice', '2025-06-10'), (2, 'Bob', '2025-06-20'), (3, 'Carol', '2025-07-05'), (4, 'Dave', '2025-07-15'), (5, 'Eve', '2025-07-21'), (6, 'Frank', '2025-08-10');",
+    "expectedResult": [
+      {
+        "month": "2025-06",
+        "new_users": 2,
+        "growth_pct": null
+      },
+      {
+        "month": "2025-07",
+        "new_users": 3,
+        "growth_pct": 50.0
+      },
+      {
+        "month": "2025-08",
+        "new_users": 1,
+        "growth_pct": -66.67
+      }
+    ],
+    "answer": {
+      "explanation": "<strong>Goal:</strong> Measure month-over-month growth of new user signups. <strong>Mechanics:</strong> Count signups per month (CTE), then use LAG to access the previous month\u2019s count and compute percentage change, handling divide-by-zero safely. <strong>Math:</strong> Growth% = ((current - previous)/previous)*100; NULL previous months or zero avoid invalid computation via NULLIF.",
+      "steps": [
+        {
+          "sql": "WITH monthly AS (\n  SELECT\n    strftime('%Y-%m', created_at) AS month,\n    COUNT(*) AS new_users\n  FROM users\n  GROUP BY month\n)",
+          "description": "Compute new users per month."
+        },
+        {
+          "sql": "SELECT\n  month,\n  new_users,\n  ROUND(((new_users - LAG(new_users) OVER (ORDER BY month)) * 100.0) / NULLIF(LAG(new_users) OVER (ORDER BY month), 0), 2) AS growth_pct\nFROM monthly\nORDER BY month;",
+          "description": "Use LAG to get previous month and calculate growth percentage, handling division by zero."
+        },
+        {
+          "sql": "WITH monthly AS (\n  SELECT\n    strftime('%Y-%m', created_at) AS month,\n    COUNT(*) AS new_users\n  FROM users\n  GROUP BY month\n)\nSELECT\n  month,\n  new_users,\n  ROUND(((new_users - LAG(new_users) OVER (ORDER BY month)) * 100.0) / NULLIF(LAG(new_users) OVER (ORDER BY month), 0), 2) AS growth_pct\nFROM monthly\nORDER BY month;",
+          "description": "",
+          "final": true
+        }
+      ],
+      "exampleTable": {
+        "before": [
+          {
+            "name": "Alice",
+            "created_at": "2025-06-10"
+          },
+          {
+            "name": "Bob",
+            "created_at": "2025-06-20"
+          },
+          {
+            "name": "Carol",
+            "created_at": "2025-07-05"
+          },
+          {
+            "name": "Dave",
+            "created_at": "2025-07-15"
+          },
+          {
+            "name": "Eve",
+            "created_at": "2025-07-21"
+          },
+          {
+            "name": "Frank",
+            "created_at": "2025-08-10"
+          }
+        ],
+        "after": [
+          {
+            "month": "2025-06",
+            "new_users": 2,
+            "growth_pct": null
+          },
+          {
+            "month": "2025-07",
+            "new_users": 3,
+            "growth_pct": 50.0
+          },
+          {
+            "month": "2025-08",
+            "new_users": 1,
+            "growth_pct": -66.67
+          }
+        ]
+      }
+    }
+  }
+]

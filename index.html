@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QueryLab</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+    <div id="top-nav">
+  <div style="font-weight: bold; font-size: 1.2rem;">QueryLab</div>
+  <div style="display: flex; gap: 1rem;">
+    <a href="https://rgerjeki.github.io" target="_blank"><i class="fas fa-user"></i></a>
+    <a href="https://github.com/rgerjeki" target="_blank"><i class="fab fa-github"></i></a>
+    <a href="https://www.linkedin.com/in/rgerjeki/" target="_blank"><i class="fab fa-linkedin"></i></a>
+  </div>
+</div>
+
+<div id="challenge-layout" style="display: flex; align-items: flex-start; gap: 2rem;">
+  <!-- LEFT: Challenge Section -->
+  <div id="challenge-section" style="flex: 1;">
+    <h2 id="challenge-title">Loading...</h2>
+    <p id="challenge-description"></p>
+
+    <div id="challenge-header" style="display:flex; align-items:center; gap:0.5rem;">
+      <h2 id="challenge-title"></h2>
+      <div id="challenge-level" class="level-badge"></div>
+    </div>
+
+    <div id="challenge-nav" style="display:flex; gap:0.5rem; align-items:center; margin-top:0.5rem;">
+      <button id="prev-challenge">← Previous</button>
+      <select id="challenge-select" aria-label="Select challenge"></select>
+      <button id="next-challenge">Next →</button>
+    </div>
+  </div>
+
+  <!-- RIGHT: Image Preview -->
+  <div class="img-container" style="flex-shrink: 0; width: 300px; position: relative;">
+    <a href="#preview">
+      <img src="image.png" alt="SQL Cheat Sheet">
+      <div class="hover-text">Cheat Sheet</div>
+    </a>
+  </div>
+</div>
+
+<!-- Modal outside layout -->
+<div id="preview" class="modal">
+  <a href="#" class="close">&times;</a>
+  <img src="image.png" alt="SQL Cheat Sheet Full">
+</div>
+
+  <div class="container" id="container">
+    <div class="sidebar" id="sidebar">
+      <h2>Data Tables</h2>
+      <div id="table-view"></div>
+    </div>
+
+    <div class="main">
+      <textarea id="sql-input" placeholder="Write your SQL query here..."></textarea>
+      <button onclick="runQuery()">Run Query</button>
+      <div id="feedback"></div>
+      <div id="results"></div>
+    <button type="button" class="collapsible">Answer Explination</button> 
+    <div class="content" id="answer-box"></div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
+  <script src="script.js"></script>
+</body>
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+</html>

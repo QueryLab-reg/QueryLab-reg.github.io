@@ -1,0 +1,324 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 1rem;
+  background: #f8f8f8;
+}
+
+#top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #f9f9f9;
+}
+
+#top-nav a {
+  color: #333;
+  text-decoration: none;
+  margin-left: 1rem;
+  font-size: 1.2rem;
+  transition: color 0.2s ease;
+}
+
+#top-nav a:hover {
+  color: #007acc;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.container {
+  display: flex;
+  transition: all 0.3s ease-in-out;
+}
+
+.sidebar {
+  position: sticky;
+  top: 1rem; /* give some breathing room from top */
+  align-self: flex-start; /* if it's inside a flex container, prevents stretching weirdness */
+  max-height: calc(100vh - 2rem); /* constrain to viewport height minus top/bottom gap */
+  overflow-y: auto; /* lets the sidebar’s own content scroll if it’s taller than that */
+
+  width: 300px;
+  background: #fff;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.main {
+  flex: 1;
+  padding-left: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.container.collapsed .sidebar {
+  width: 0;
+  padding: 0;
+  overflow: hidden;
+  border: none;
+}
+
+.container.collapsed .main {
+  padding-left: 0;
+}
+
+textarea {
+  width: 90%;
+  height: 200px;
+  font-family: monospace;
+  font-size: 14px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+    .img-container {
+      position: relative;
+      display: inline-block;
+      width: 50%;
+      height: 200px;
+        padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .img-container img {
+      width: 100%;
+      height: 100%;
+      border-radius: 6px;
+      cursor: pointer;
+      display: block;
+    }
+
+    .hover-text {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      padding: 0.3rem 0.6rem;
+      font-family: monospace;
+      font-size: 14px;
+      border-radius: 4px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .img-container:hover .hover-text {
+      opacity: 1;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+    }
+
+    .modal img {
+      width: auto;
+      height: 80vh;
+      margin: 5% auto;
+      display: block;
+    }
+
+    .modal:target {
+      display: block;
+    }
+
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 30px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+#results {
+  margin-top: 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+caption {
+  font-weight: bold;
+  text-align: left;
+  margin: 0.5rem 0;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+#challenge-section {
+  background: #fff;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  height: 200px;
+}
+
+#challenge-title {
+  margin: 0;
+}
+
+#feedback {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+#feedback.success {
+  color: green;
+}
+
+#feedback.error {
+  color: red;
+}
+
+#answer-box {
+  background: #fff;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+p {
+  margin: 0.2rem 0 0.8rem;
+}
+
+strong {
+    color: #007acc;
+}
+
+pre.final-step code {
+  background: #f9f9f9;
+  padding: 0.5rem;
+  border-left: 3px solid #14f22e;
+  font-size: 0.95rem;
+  overflow-x: auto;
+  font-family: monospace;
+  white-space: pre-wrap;
+  display: block;
+  padding: 0.5rem;
+}
+
+pre code {
+  background: #f9f9f9;
+  padding: 0.5rem;
+  border-left: 3px solid #007acc;
+  font-size: 0.95rem;
+  overflow-x: auto;
+  font-family: monospace;
+  white-space: pre-wrap;
+  display: block;
+  padding: 0.5rem;
+}
+
+.sql-keyword {
+  color: #007acc;
+  font-weight: bold;
+}
+
+.sql-string {
+  color: #d14;
+}
+
+.sql-function {
+  color: #6a0dad;
+  font-weight: bold;
+}
+
+.sql-comment {
+  color: #228b22;
+  font-style: italic;
+}
+
+.sql-operator {
+  color: #555;
+}
+
+.level-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+/* Color per level */
+.level-badge.beginner {
+  background: #d1fae5; /* light green */
+  color: #065f46;      /* dark green */
+}
+
+.level-badge.intermediate {
+  background: #e0f2fe; /* light blue */
+  color: #0c4a6e;      /* dark blue */
+}
+
+.level-badge.hard {
+  background: #fee2e2; /* light red/pink */
+  color: #7f1d1d;      /* dark red */
+}
+
+.collapsible {
+  background-color: #e2e2e2;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  padding: 1rem;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #cfcfcf;
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+.collapsible:after {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: white;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
