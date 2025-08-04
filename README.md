@@ -1,6 +1,6 @@
 # QueryLab
 
-**QueryLab** is a browser-based SQL playground for learning and practicing SQL through interactive challenges. Inspired by platforms like LeetCode and SQLBolt, it offers a hands-on environment where users can:
+**QueryLab** is a browser-based SQL playground for learning and practicing SQL through interactive challenges. Uusers can:
 
 - View structured SQL challenges with sample data
 - Write and execute queries directly in the browser (powered by SQLite via sql.js)
