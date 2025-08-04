@@ -4,7 +4,6 @@
 
 - View structured SQL challenges with sample data
 - Write and execute queries directly in the browser (powered by SQLite via sql.js)
-- Automatically validate query results against expected outputs
 - Explore step-by-step explanations and before/after tables
 - Reference a built-in cheat sheet preview while solving
 
@@ -16,7 +15,6 @@
 
 - 🧠 20+ curated SQL challenges (Beginner to Intermediate)
 - 📘 Interactive schema and table view
-- ✅ Auto-validation against expected query results
 - 💡 Visual breakdown of solution steps
 - 💻 Runs entirely in-browser (no backend)
 - 🧾 Linked cheat sheet overlay for quick SQL reference
